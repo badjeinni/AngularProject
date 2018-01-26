@@ -14,6 +14,8 @@ export class UserComponent implements OnInit {
 	address:Address;
 	hobbies:string[];
 	hello:any;
+  posts:Post[];
+  isEdit:boolean = false;
 
 	constructor(private dataService: DataService) {  // mettre ici la variable  dataService  
   		console.log('constructor ran ....');
@@ -35,7 +37,9 @@ export class UserComponent implements OnInit {
    // affiche le contenu du webService
 
    this.dataService.getPosts().subscribe((posts) => {
-    console.log(posts);
+    //console.log(posts);
+    this.posts = posts;
+
    });  
 
   }
@@ -56,10 +60,23 @@ export class UserComponent implements OnInit {
   		}
   	}
   }
+
+  toggleEdit(){
+    this.isEdit=!this.isEdit;
+    this.hobbies.push('New hobby');
+  }
+
   }
 
 interface Address{
 	street:string,
 	city:string,
 	state:string
+}
+
+interface Post{
+  id: number,
+  title:string,
+  body:string,
+  userId:number
 }
